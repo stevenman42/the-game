@@ -1,7 +1,5 @@
 //test
-
-//steven is this even giong to correctly load our files?
-//i dont think thisll work with java
+// Bennett learn to spell pls
 import java.util.Scanner;
 
 public class StupidGame {
