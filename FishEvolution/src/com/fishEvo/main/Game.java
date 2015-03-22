@@ -14,6 +14,7 @@ public class Game extends Canvas implements Runnable{
 
 	
 	private Thread thread;
+	private Handler handler;
 	private boolean running = false;
 	//private Handler handler;
 	
@@ -27,9 +28,9 @@ public class Game extends Canvas implements Runnable{
 
 	
 	public Game(){
-		//handler = new Handler();
+		handler = new Handler();
 		
-		 new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
+		new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
 	}
 	
 	public void run() {
@@ -78,7 +79,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void tick(){
-		
+		handler.tick();
 	}
 	
 	public void render(){
@@ -96,7 +97,7 @@ public class Game extends Canvas implements Runnable{
 		if(State == STATE.GAME)
 			g.setColor(Color.BLACK);
 		if(State == STATE.MENU){
-			g.setColor(Color.white);
+			g.setColor(Color.gray);
 		}
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -104,7 +105,7 @@ public class Game extends Canvas implements Runnable{
 		//render the environment
 		if(State == STATE.GAME){
 			//render the background
-			//handler.render(g);
+			handler.render(g);
 		}
 
 		//update the image
@@ -112,6 +113,15 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 		
 	
+	}
+	
+	public static float clamp(float var, float min, float max){
+		if(var >= max)
+			return var = max;
+		else if (var <= min)
+			return var = min;
+		else 
+			return var;
 	}
 	
 	public static void main(String args[]){
