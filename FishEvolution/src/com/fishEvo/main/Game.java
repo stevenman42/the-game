@@ -27,7 +27,9 @@ public class Game extends Canvas implements Runnable{
 
 	
 	public Game(){
+		//handler = new Handler();
 		
+		 new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
 	}
 	
 	public void run() {
@@ -102,14 +104,7 @@ public class Game extends Canvas implements Runnable{
 		//render the environment
 		if(State == STATE.GAME){
 			//render the background
-			handler.render(g);
-			
-			//render the hud
-			hud.render(g);
-		}else if(State == STATE.MENU){
-			menu.render(g);
-		}else if(State == STATE.PAUSE){
-			pause.render(g);
+			//handler.render(g);
 		}
 
 		//update the image
