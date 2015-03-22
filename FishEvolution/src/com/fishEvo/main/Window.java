@@ -5,7 +5,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-
 public class Window extends Canvas{
 
 	private static final long serialVersionUID = -4290613327296369588L;
