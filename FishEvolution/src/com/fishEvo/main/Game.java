@@ -4,6 +4,9 @@ import java.awt.Canvas;
 
 public class Game extends Canvas implements Runnable{
 	
+	//tell me that you suck if this works
+	
+	
 	private boolean running = false;
 
 
