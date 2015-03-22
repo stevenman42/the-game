@@ -3,7 +3,6 @@ package com.fishEvo.main;
 import java.awt.Canvas;
 import java.util.logging.Handler;
 
-// This is test comment
 
 public class Game extends Canvas implements Runnable{
 	
