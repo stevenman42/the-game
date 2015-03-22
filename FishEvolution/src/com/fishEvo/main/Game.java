@@ -4,7 +4,7 @@ import java.awt.Canvas;
 
 public class Game extends Canvas implements Runnable{
 	
-	//tell me that you suck if this works
+	private static final long serialVersionUID = 8926385898770160133L;
 	
 	
 	private boolean running = false;
