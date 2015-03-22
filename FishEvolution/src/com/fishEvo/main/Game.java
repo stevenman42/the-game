@@ -2,6 +2,8 @@ package com.fishEvo.main;
 
 import java.awt.Canvas;
 
+// This is test comment
+
 public class Game extends Canvas implements Runnable{
 	
 	private boolean running = false;
