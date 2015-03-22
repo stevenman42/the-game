@@ -1,6 +1,7 @@
 package com.fishEvo.main;
 
 import java.awt.Canvas;
+import java.util.logging.Handler;
 
 // This is test comment
 
@@ -8,9 +9,20 @@ public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = 8926385898770160133L;
 	
-	
-	private boolean running = false;
+	public static final int WIDTH = 720, HEIGHT = WIDTH / 16 * 9;
 
+	
+	private Thread thread;
+	private boolean running = false;
+	private Handler handler;
+	
+	public static enum STATE{
+		MENU,
+		GAME,
+		PAUSE
+	};
+	
+	public static STATE State = STATE.MENU;
 
 	public void run() {
 		long lastTime = System.nanoTime();
@@ -56,5 +68,7 @@ public class Game extends Canvas implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }
