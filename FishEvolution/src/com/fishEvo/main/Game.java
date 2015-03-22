@@ -1,7 +1,9 @@
 package com.fishEvo.main;
 
 import java.awt.Canvas;
-import java.util.logging.Handler;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 
 
 public class Game extends Canvas implements Runnable{
@@ -13,7 +15,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Thread thread;
 	private boolean running = false;
-	private Handler handler;
+	//private Handler handler;
 	
 	public static enum STATE{
 		MENU,
@@ -23,6 +25,11 @@ public class Game extends Canvas implements Runnable{
 	
 	public static STATE State = STATE.MENU;
 
+	
+	public Game(){
+		
+	}
+	
 	public void run() {
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -66,6 +73,54 @@ public class Game extends Canvas implements Runnable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public void tick(){
+		
+	}
+	
+	public void render(){
+		this.requestFocus();
+		BufferStrategy bs = this.getBufferStrategy();
+		if(bs == null){
+			this.createBufferStrategy(3);
+			return;
+		}
+		
+		Graphics g = bs.getDrawGraphics();
+		
+		//make background
+		
+		if(State == STATE.GAME)
+			g.setColor(Color.BLACK);
+		if(State == STATE.MENU){
+			g.setColor(Color.white);
+		}
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+
+		
+		//render the environment
+		if(State == STATE.GAME){
+			//render the background
+			handler.render(g);
+			
+			//render the hud
+			hud.render(g);
+		}else if(State == STATE.MENU){
+			menu.render(g);
+		}else if(State == STATE.PAUSE){
+			pause.render(g);
+		}
+
+		//update the image
+		g.dispose();
+		bs.show();
+		
+	
+	}
+	
+	public static void main(String args[]){
+		new Game();
 	}
 	
 	
