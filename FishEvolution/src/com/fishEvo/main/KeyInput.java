@@ -25,12 +25,17 @@ public class KeyInput extends KeyAdapter{
 		//object ID (which we compare to the list we made in ID.java
 	//	for(int i = 0; i < handler.object.size(); i++){
 		//	GameObject tempObject = handler.object.get(i);
-
-				
-				if(key == KeyEvent.VK_UP){
-					//Code to do
-					keyDown[0] = true;
-				}	
+		if(Game.State == Game.STATE.MENU){	
+			if(key == KeyEvent.VK_SPACE){
+				Game.State = Game.STATE.GAME;
+				keyDown[0] = true;
+			}	
+		}else if(Game.State == Game.STATE.GAME){
+			if(key == KeyEvent.VK_ESCAPE){
+				Game.State = Game.STATE.MENU;
+				keyDown[5] = true;
+			}
+		}
 	}
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
@@ -47,7 +52,6 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_RIGHT) keyDown[3] = false;
 				if(key == KeyEvent.VK_ENTER) keyDown[4] = false;
 				
-				//vertical movement
 				if(!keyDown[0] && !keyDown[1]){
 					//Code to do
 				}

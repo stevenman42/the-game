@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 
+
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = 8926385898770160133L;
@@ -39,7 +40,8 @@ public class Game extends Canvas implements Runnable{
 		menu = new Menu();
 		pause = new Pause();
 		
-		this.addMouseListener(new MouseInput());//handler, menu, pause));
+		this.addKeyListener(new KeyInput(handler));	
+		this.addMouseListener(new MouseInput());
 
 		new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
 	}
