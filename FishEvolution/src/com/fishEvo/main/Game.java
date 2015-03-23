@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 
 public class Game extends Canvas implements Runnable{
@@ -16,8 +17,13 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private Menu menu;
 	private Handler handler;
+	private Pause pause;
+	private ID id;
+	private HUD hud;
+	private Spawn spawn;
+	
+	private Random r = new Random();
 	private boolean running = false;
-	//private Handler handler;
 	
 	public static enum STATE{
 		MENU,
@@ -31,7 +37,10 @@ public class Game extends Canvas implements Runnable{
 	public Game(){
 		handler = new Handler();
 		menu = new Menu();
+		pause = new Pause();
 		
+		this.addMouseListener(new MouseInput());//handler, menu, pause));
+
 		new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
 	}
 	
@@ -83,7 +92,9 @@ public class Game extends Canvas implements Runnable{
 	public void tick(){
 		if(State == STATE.GAME){
 			handler.tick();
-		}			
+		}	
+		else{}
+		
 	}
 	
 	public void render(){
@@ -98,17 +109,29 @@ public class Game extends Canvas implements Runnable{
 		
 		//make background
 		
-		if(State == STATE.GAME)
-			g.setColor(Color.BLACK);
+		if(State == STATE.GAME){
+			g.setColor(Color.white);
+		}
 		if(State == STATE.MENU){
-			g.setColor(Color.gray);
+			
+		/*
+		    STEVEN WHY DOES THIS NOT WORK!@#?!@?#!?@#!@?#?!@#?@!?#!@?#?!@?#!?#!@?#!?@#?!@?#!@?#!@?#!@?#!?@#?!@#?!@#?!@#?!@?#?!@#?
+			
+			ImageIcon i = new ImageIcon("test.png");
+            Image image = i.getImage();
+            g.drawImage(image, 200, 200, null);
+            
+            STEVEN WHY DOES THIS NOT WORK!??!@#?!@#?!@?@?#?!@#?!@#?!@?#!@?#!@?#!@?#!@?#?!@#?#?!@?#!?@#?!@#?!@#?!@#?@?!#?!@?#?!@#
+        */
+			//g.setColor(Color.black);
+
 		}
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		
 		//render the environment
 		if(State == STATE.GAME){
-			//render the background
+			//render the foreground
 			handler.render(g);
 		}
 		if(State == STATE.MENU){
