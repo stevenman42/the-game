@@ -36,6 +36,9 @@ public class KeyInput extends KeyAdapter{
 				keyDown[5] = true;
 			}
 		}
+		if(key == KeyEvent.VK_END){
+			System.exit(1);
+		}
 	}
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
