@@ -3,8 +3,13 @@ package com.fishEvo.main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 
 
@@ -108,27 +113,33 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		
+		Graphics2D g2d = (Graphics2D) g;
 		//make background
 		
 		if(State == STATE.GAME){
 			g.setColor(Color.white);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
+
 		}
 		if(State == STATE.MENU){
 			
-		/*
-		    STEVEN WHY DOES THIS NOT WORK!@#?!@?#!?@#!@?#?!@#?@!?#!@?#?!@?#!?#!@?#!?@#?!@?#!@?#!@?#!@?#!?@#?!@#?!@#?!@#?!@?#?!@#?
+		
+		/* //   STEVEN WHY DOES THIS NOT WORK!@#?!@?#!?@#!@?#?!@#?@!?#!@?#?!@?#!?#!@?#!?@#?!@?#!@?#!@?#!@?#!?@#?!@#?!@#?!@#?!@?#?!@#?
 			
 			ImageIcon i = new ImageIcon("test.png");
-            Image image = i.getImage();
-            g.drawImage(image, 200, 200, null);
-            
-            STEVEN WHY DOES THIS NOT WORK!??!@#?!@#?!@?@?#?!@#?!@#?!@?#!@?#!@?#!@?#!@?#?!@#?#?!@?#!?@#?!@#?!@#?!@#?@?!#?!@?#?!@#
-        */
-			//g.setColor(Color.black);
+            Image image = i.getImage();            
+            BufferedImage newImage = new BufferedImage(
+            			1280, 720,
+            			BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d2 = newImage.createGraphics();
+            g2d2.drawImage(image, 0, 0, 1280, 720, null);
+           	g2d2.dispose();
+    
+         */ //   STEVEN WHY DOES THIS NOT WORK!??!@#?!@#?!@?@?#?!@#?!@#?!@?#!@?#!@?#!@?#!@?#?!@#?#?!@?#!?@#?!@#?!@#?!@#?@?!#?!@?#?!@#
+			
+			g.setColor(Color.black);
 
 		}
-		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		
 		//render the environment

@@ -1,8 +1,11 @@
 package com.fishEvo.main;
 
 import java.awt.Canvas;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Window extends Canvas{
@@ -21,6 +24,7 @@ public class Window extends Canvas{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //makes Exit button work
 		frame.setResizable(false); //makes game window not resizable (fixes strecthes)
 		frame.setLocationRelativeTo(null); //not needed but window would start in topleft otherwise
+		
 		frame.add(game); //use the game
 		frame.setVisible(true); // have to see it
 		game.start(); //start game from method
