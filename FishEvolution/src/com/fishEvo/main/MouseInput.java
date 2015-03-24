@@ -5,49 +5,61 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener{
-/*
-	private Handler handler;
+
 	private Menu menu;
-	private Pause pause;
 	
-	public MouseInput(Handler handler, Menu menu, Pause pause){
-		this.handler = handler;
+	public MouseInput(Menu menu){
 		this.menu = menu;
-		this.pause = pause;
 	}
-*/
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 		
 	}
 
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 		
 	}
 
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 		
 	}
 
-	public void mousePressed(MouseEvent arg0) {
-		int mx = arg0.getX();
-		int my = arg0.getY();
+	public void mousePressed(MouseEvent e) {
+		int mx = e.getX();
+		int my = e.getY();
 		
-		//public Rectangle playButton = new Rectangle(Game.WIDTH/2-50, Game.HEIGHT/2 - 30, 100, 50);
-
-		if(Game.State == Game.STATE.MENU)
-			if(mouseOver(mx, my, Game.WIDTH/2-50, Game.HEIGHT/2 - 30, 100, 50))
+		if(Game.State == Game.STATE.MENU){
+			if(mouseOverRectangle(mx, my, menu.playButton))
+			{
 				Game.State = Game.STATE.GAME;
-	
+			}
+			if(mouseOverRectangle(mx, my, menu.quitButton)){
+				System.exit(1);
+			}
+		}else if(Game.State == Game.STATE.GAME)
+		{
+			
+		}else if(Game.State == Game.STATE.PAUSE)
+		{
+			
+		}
 	}
 
-	
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 		
 	}
 	
 	public boolean mouseOver(int mx, int my, int x, int y, int w, int h){
 		if(mx > x && mx < x+w){
-			if(my > y && mx < y+h){
+			if(my > y && my < y+h){
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	public boolean mouseOverRectangle(int mx, int my, Rectangle rect){
+		if(mx > rect.x && mx < rect.x + rect.width){
+			if(my > rect.y && my < rect.y + rect.height){
 				return true;
 			}
 			return false;

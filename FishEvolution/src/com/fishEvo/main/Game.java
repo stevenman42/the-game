@@ -42,13 +42,15 @@ public class Game extends Canvas implements Runnable{
 	
 	public Game(){
 		handler = new Handler();
+		
+		new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
+
 		menu = new Menu();
 		pause = new Pause();
 		
 		this.addKeyListener(new KeyInput(handler));	
-		this.addMouseListener(new MouseInput());
+		this.addMouseListener(new MouseInput(menu));
 
-		new Window(WIDTH, HEIGHT, "fishEvo #rekt", this);
 	}
 	
 	public void run() {
@@ -118,7 +120,6 @@ public class Game extends Canvas implements Runnable{
 		
 		if(State == STATE.GAME){
 			g.setColor(Color.white);
-			g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		}
 		if(State == STATE.MENU){
@@ -140,6 +141,7 @@ public class Game extends Canvas implements Runnable{
 			g.setColor(Color.black);
 
 		}
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		
 		//render the environment
