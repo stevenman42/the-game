@@ -4,12 +4,14 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 
 
@@ -27,6 +29,7 @@ public class Game extends Canvas implements Runnable{
 	private ID id;
 	private HUD hud;
 	private Spawn spawn;
+	public static BufferedImage background, missingTileImg;
 	
 	private Random r = new Random();
 	private boolean running = false;
@@ -50,6 +53,27 @@ public class Game extends Canvas implements Runnable{
 		
 		this.addKeyListener(new KeyInput(handler));	
 		this.addMouseListener(new MouseInput(menu));
+		
+		try {
+            missingTileImg = ImageIO.read(new File("missingTile.png"));
+            background = ImageIO.read(new File("tank.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("missing file");
+        }
+		
+		int h = 50;
+		for(int i = 0; i < h; i++){
+			for(int j = 0; j < h; j++){
+				handler.addObject(new Tile(i,j,missingTileImg));
+			}
+		}
+		background = new BufferedImage(h*32, h*32, BufferedImage.TYPE_INT_ARGB);
+		Graphics gTemp = background.getGraphics(); 
+		for(int i = 0; i < handler.object.size(); i++){
+			GameObject tempObject = handler.object.get(i);
+			gTemp.drawImage(missingTileImg, tempObject.getX(), tempObject.getY(), null);
+		}
 
 	}
 	
@@ -74,7 +98,7 @@ public class Game extends Canvas implements Runnable{
 			
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-			//	System.out.println("FPS: " + frames);
+				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -99,10 +123,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void tick(){
-		if(State == STATE.GAME){
-			handler.tick();
-		}	
-		else{}
+		handler.tick();
 		
 	}
 	
@@ -115,59 +136,21 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		Graphics2D g2d = (Graphics2D) g;
-		//make background
-		
-		if(State == STATE.GAME){
-			g.setColor(Color.white);
+		Graphics2D g2d = (Graphics2D) g.create();
 
-		}
-		if(State == STATE.MENU){
-			
-		
-		/* //   STEVEN WHY DOES THIS NOT WORK!@#?!@?#!?@#!@?#?!@#?@!?#!@?#?!@?#!?#!@?#!?@#?!@?#!@?#!@?#!@?#!?@#?!@#?!@#?!@#?!@?#?!@#?
-			
-			ImageIcon i = new ImageIcon("test.png");
-            Image image = i.getImage();            
-            BufferedImage newImage = new BufferedImage(
-            			1280, 720,
-            			BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2d2 = newImage.createGraphics();
-            g2d2.drawImage(image, 0, 0, 1280, 720, null);
-           	g2d2.dispose();
-    
-         */ //   STEVEN WHY DOES THIS NOT WORK!??!@#?!@#?!@?@?#?!@#?!@#?!@?#!@?#!@?#!@?#!@?#?!@#?#?!@?#!?@#?!@#?!@#?!@#?@?!#?!@?#?!@#
-			
-			g.setColor(Color.black);
+		g.setColor(Color.black);
+		g.fillRect(0, 0, 500, 500);
+		g.setClip(new Rectangle(100,100,500,500));
+		handler.render(g);
+		g.setClip(null);
 
-		}
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-
-		
-		//render the environment
-		if(State == STATE.GAME){
-			//render the foreground
-			handler.render(g);
-		}
-		if(State == STATE.MENU){
-			menu.render(g);
-		}
-
-		//update the image
 		g.dispose();
+		g2d.dispose();
 		bs.show();
 		
 	
 	}
-	
-	public static float clamp(float var, float min, float max){
-		if(var >= max)
-			return var = max;
-		else if (var <= min)
-			return var = min;
-		else 
-			return var;
-	}
+
 	
 	public static void main(String args[]){
 		new Game();
