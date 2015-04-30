@@ -13,7 +13,7 @@ public abstract class GameObject {
 		this.y = y;
 		this.tileImg = tileImg;
 	}
-
+//test
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	
